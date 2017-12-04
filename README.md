@@ -1,18 +1,24 @@
 # Intro to AngularJS
 
-### A short guide to understanding basic AngularJS concepts.
+### *A short guide to understanding basic AngularJS concepts.*
 
 For our development, we will be primarily using AngularJS. It is a very powerful front-end framework with many features included. This guide will cover basic methods that come with the AngularJS framework.
 
+
 # Table of Contents
-1. [Intro](#what-is-angularjs)
-    1. [How AngularJS works](#how-angularjs-works)
-    1. [What AngularJS does](#what-angularjs-does)
-2. [Getting Started](#initial-setup)
+1. [Intro to AngularJS](#what-is-angularjs)
+    1. [How it Works](#how-angularjs-works)
+    1. [What it Does](#what-angularjs-does)
+1. [Getting Started](#initial-setup)
+1. [Building with AngularJS](#building-the-application)
+    1. [The Module](#the-module)
+
 
 # What is AngularJS?
 
 AngularJS is a frontend framework that helps us build more dynamic webpages without having to type too much of our own JavaScript.
+
+**If you already have a basic understanding of AngularJS and what it does, then [skip this section.](#initial-setup)**
 
 ### How AngularJS works
 
@@ -37,10 +43,76 @@ AngularJS can even create custom HTML elements called *components* but that is o
 
 Now that you have a basic understanding of what AngularJS is, let's create a simple application with it! Follow along with this guide, and you can find the final version of this application in this repository in the *app* directory.
 
+**[Back to top](#table-of-contents)**
+
 # Initial Setup
 
-AngularJS is a framework, so we need to load it with our HTML before we can use it.
+AngularJS is a framework, so we need to load it with our HTML before we can use it. I like to just use the CDN that is provided by AngularJS straight from their site:
 
-First attach to your index HTML the CDN for AngularJS:  **https://code.angularjs.org/1.6.7/angular.min.js**.
+---
+> https://code.angularjs.org/1.6.7/angular.min.js
+---
 
+The *view* of our application will be the **/app/index.html** file in this repository. Your version of the HTML file should now look something like this:
+
+```
+// index.html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS Tutorial</title>
+    <script src="https://code.angularjs.org/1.6.7/angular.min.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
+```
+
+That's it! Now we have AngularJS loaded in our app and we can start building out an AngularJS application!
+
+**[Back to top](#table-of-contents)**
+
+# Building the Application
+
+The *whatever/controller* for this app will be the **/app/app.js**. This will pretty much contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
+
+```
+// index.html
+
+...
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS Tutorial</title>
+    <script src="https://code.angularjs.org/1.6.7/angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+...
+```
+
+### The module
+
+Every AngularJS app requires calling the **module** method from the AngularJS framework. Think of this as the primary link between AngularJS framework and your JS and HTML files.
+
+This line sets up our JS file so we can use all the methods from the framework:
+
+```
+// app.js
+
+const myFirstApp = angular.module('appName', []);
+```
+
+**One thing to note:** The square brackets **[]** inside *angular.module()* is left empty for now, but it will be used for dependency injection. I'll cover more on this later, but you do not need to worry about it for now.
+
+Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, *appName* that we created in the app.js file.
+
+```
+// app.js
+
+const myFirstApp = angular.module('appName', []);
+```
+
+
+**[Back to top](#table-of-contents)**
 <!-- When we create an **observable**, we are pretty much pointing AngularJS to some data that we want it to constantly monitor for any changes. We then wire up an HTML element to the observable using **data-binding**. Then, this HTML element becomes dynamic, meaning it can change if the data -->
