@@ -1,8 +1,8 @@
 # Intro to AngularJS
 
-### *A short guide to understanding basic AngularJS concepts.*
+### *A crash course to help you understand basic, pre-1.4v AngularJS concepts.*
 
-For our development, we will be primarily using AngularJS. It is a very powerful front-end framework with many features included. This guide will cover basic methods that come with the AngularJS framework.
+For our development, we will be primarily using AngularJS. It is a very powerful front-end framework with many features included. This guide will cover the basics of AngularJS to help you get started on developing dynamic web applications from a static HTML page. The point of this guide is to understand the underlying concept of AngularJS; for that reason, I will be showing you techniques that are easy to understand rather than best practices for developing enterprise-level applications.
 
 
 # Table of Contents
@@ -10,15 +10,18 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [How it Works](#how-angularjs-works)
     1. [What it Does](#what-angularjs-does)
 1. [Getting Started](#initial-setup)
-1. [Building with AngularJS](#building-the-application)
-    1. [The Module](#the-module)
+    1. [The Module](#module)
+    1. [Directives](#directives)
+    1. [Controllers](#controllers)
+1. [Building with AngularJS](#building-a-grocery-list)
+
 
 
 # What is AngularJS?
 
 AngularJS is a frontend framework that helps us build more dynamic webpages without having to type too much of our own JavaScript.
 
-**If you already have a basic understanding of AngularJS and what it does, then [skip this section.](#initial-setup)**
+***If you already have a basic understanding of AngularJS and what it does, then [skip this section.](#initial-setup)***
 
 ### How AngularJS works
 
@@ -70,12 +73,6 @@ The *view* of our application will be the **/app/index.html** file in this repos
 </html>
 ```
 
-That's it! Now we have AngularJS loaded in our app and we can start building out an AngularJS application!
-
-**[Back to top](#table-of-contents)**
-
-# Building the Application
-
 The *whatever/controller* for this app will be the **/app/app.js**. This will pretty much contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
 
 ```
@@ -91,11 +88,11 @@ The *whatever/controller* for this app will be the **/app/app.js**. This will pr
 ...
 ```
 
-### The module
+### The Module
 
-Every AngularJS app requires calling the **module** method from the AngularJS framework. Think of this as the primary link between AngularJS framework and your JS and HTML files.
+Every AngularJS app requires setting up a **module**. Think of a module as the primary link between AngularJS framework and our HTML and JS files.
 
-This line sets up our JS file so we can use all the methods from the framework:
+This line sets up our JS file so we can set up the module and use all the methods that come with the AngularJS framework:
 
 ```
 // app.js
@@ -108,11 +105,69 @@ const myFirstApp = angular.module('appName', []);
 Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, *appName* that we created in the app.js file.
 
 ```
+// index.html
+
+<!DOCTYPE html>
+<html ng-app="appName">
+  <head>
+...
+```
+
+I like to attach the module in the <html> tag, but you can do it in the <body> tag or a top-level <div> container as well. Be aware that AngularJS will only see and run our controller code on the child elements that go *inside* of whichever element we pass the module name into.
+
+I passed the module **appName** to my <html> element using the **ng-app** [directive.](#directives)
+
+### Directives
+
+**Directives** are customized AngularJS attributes that are attached to HTML elements. AngularJS directives are very similar to the common HTML attributes such as *id, class, href, src, etc.* but way more beefed up. We use these directives to tell AngularJS to bind things/features to HTML elements such as data, event listeners, callbacks, conditionals, etc.
+
+There are many directives that come standard with the AngularJS framework. AngularJS has great documentation with a [list of all the built-in directives.](https://docs.angularjs.org/api/ng/directive)
+
+### Controllers
+
+This is where the MVC/MVW concept comes together and we can truly see how AngularJS is an MVC framework. **Controllers** are an AngularJS directive where we put all our code which will act as the *controller* that connects the *view* and the *model*. I advise that you separate the code for the model, view and controller in different files to achieve. However, for the sake of simplicity, I will use a plain JS array inside the controller as the model for this application.
+
+We create a controller in our app by attaching it to the centralized module that we created earlier:
+
+```
 // app.js
 
 const myFirstApp = angular.module('appName', []);
+
+
+myFirstApp.controller('groceryList', function() {
+
+  // Your controller code will go in here!
+
+});
 ```
 
+Then we attach the controller inside the HTML using the **ng-controller** directive. **When attaching the ng-controller directive to your HTML, make sure you pass it into an element that is at the same level or below the element that we set the ng-app module directive on or it will not work**:
+
+```
+// index.html
+
+<!DOCTYPE html>
+<html ng-app="appName">
+  <head>
+    <meta charset="utf-8">
+    <title>AngularJS Tutorial</title>
+    <script src="https://code.angularjs.org/1.6.7/angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-controller="groceryList">
+
+  </body>
+</html>
+```
+
+I did it on the <body> tag which is *inside* of my <html> tag that I attached the module directive to.
+
+That's it! Now we have AngularJS loaded in our app and we can start building out an AngularJS application!
 
 **[Back to top](#table-of-contents)**
+
+# Building a Grocery List
+
+
 <!-- When we create an **observable**, we are pretty much pointing AngularJS to some data that we want it to constantly monitor for any changes. We then wire up an HTML element to the observable using **data-binding**. Then, this HTML element becomes dynamic, meaning it can change if the data -->
