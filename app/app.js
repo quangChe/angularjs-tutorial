@@ -1,10 +1,13 @@
 const myFirstApp = angular.module('appName', []);
 
-myFirstApp.controller('groceryList', function($scope) {
+myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
-  $scope.owner = "Iris";
-  $scope.notice = "Things to buy:";
-  $scope.groceryList = ["Apples", "Oranges", "Bananas"];
+  // Application's data array (the Model)
+  $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+
+
+  $scope.title = "Iris's Grocery List";
+  $scope.notice = "fa fa-shopping-cart";
 
 
   $scope.addItem = function(newItem) {
@@ -22,4 +25,4 @@ myFirstApp.controller('groceryList', function($scope) {
     }
   }
 
-});
+}]);

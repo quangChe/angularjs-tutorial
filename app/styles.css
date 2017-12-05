@@ -1,7 +1,10 @@
+body {
+}
+
 * {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Barlow Semi Condensed';
 }
 
 ul {
@@ -10,6 +13,7 @@ ul {
 
 #grocery-app {
   width: 50%;
+  min-width: 380px;
   margin: 5vh auto 5vh auto;
   padding-bottom: 8vh;
   border-radius: 10px;
@@ -21,21 +25,27 @@ ul {
               -8px -16px 16px rgba(150, 150, 150, .05);
   text-align: center;
   overflow: hidden;
+  background: #FFFDE7;
+
 }
 
 .title {
   font-weight: 100;
-  font-size: 3em;
+  font-size: 4em;
   color: white;
-  width: 100%;
   background: #E53935;
-  padding: 20px 0;
+  padding: 2vh 2vw;
 }
 
-.list-note {
-  font-weight: 400;
-  font-size: 1.5em;
-  margin: 6vh auto 3vh auto;
+.list-img.fa.fa-shopping-cart {
+  font-size: 7em;
+  margin: 8vh auto 6vh auto;
+  transform: rotate(20deg);
+  color: white;
+  background: #81C784;
+  padding: 30px 35px;
+  border-radius: 100%;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
 }
 
 .grocery-list {
@@ -43,62 +53,89 @@ ul {
   font-weight: 100;
 }
 
-.bullet-img {
-  width:  25px;
-  height: 25px;
-}
-
 .list-item {
-  margin: 2vh auto;
+  margin: 1vh auto;
   transition: 1s;
   color: #039BE5;
+  background: #E0E0E0;
+  padding: 10px 20px 10px 30px;
+  width: 40%;
+  min-width: 200px;
+  border-radius: 10px;
+  display: inline-grid;
+  grid-template-columns: 1fr 7fr;
+  grid-gap: 10px;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 100;
+  overflow: scroll;
 }
 
 .list-item:hover {
   cursor: pointer;
   text-decoration: line-through;
-  opacity: .1;
+  background: #FAFAFA;
+  color: #E0E0E0;
+  font-size: 24px;
   transition: .5s;
 }
 
-.list-desc {
+.bullet-img {
+  width: 45px;
+  height: 45px;
+}
+
+.remove-note {
   margin: 5vh 0 0 0;
+  font-size: 1.5em;
   font-weight: 100;
-  color: #757575;
+  color: #424242;
+}
+
+.empty-desc {
+  margin: 2vh auto 8vh auto;
+  padding: 20px 20px;
+  border-radius: 40px;
+  font-size: 1.5em;
+  font-weight: 300;
+  background: #E0E0E0;
+  width: 80%;
 }
 
 .add-note{
-  font-weight: 100;
+  font-weight: 500;
   font-size: 1.8em;
-  margin: 10vh auto 2vh auto;
+  margin: 15vh auto 2vh auto;
   color: #81C784;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .1);
 }
 
 .item-input {
-  outline: none;
   width: 50%;
   font-size: 20px;
-  font-weight: 100;
+  font-weight: 500;
+  border: 1px solid #424242;
+  outline: none;
+  padding: 8px;
 }
 
 .add-btn {
-  background: #E53935;
+  background: #CF9345;
   border: none;
   height: 30px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   color: white;
   padding: 5px 20px;
   display: block;
   margin: 3vh auto 0 auto;
-  box-shadow: 0px 1px 1px rgba(50, 50, 50, .2),
-              -2px 4px 4px rgba(50, 50, 50, .1),
-              -4px 8px 8px rgba(50, 50, 50, .05);
 }
 
 .add-btn:hover {
   cursor: pointer;
   box-shadow: none;
+  opacity: .6;
+  transition: .7s;
 }
 
 .add-btn:focus {

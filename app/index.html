@@ -3,7 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>AngularJS Tutorial</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:100,300,500" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+
+
     <script src="https://code.angularjs.org/1.6.7/angular.min.js"></script>
     <script src="app.js"></script>
   </head>
@@ -11,24 +16,25 @@
 
     <div id="grocery-app">
 
-      <h1 class="title">{{owner}}'s Grocery List</h1>
-
-      <h3 class="list-note" ng-bind="notice">Here are some things you need to buy:</h3>
-
-      <ul class="grocery-list" ng-repeat="item in groceryList">
-        <div ng-if="groceryList.length > 1">
-          <li class="list-item" ng-click="removeItem(item)"><img class="bullet-img" src="imgs/icon.svg"/> {{item}}</li>
-          <h4 class="list-desc">(Click on an item to remove it from the list)</h4>
-
-        </div>
-      </ul>
+      <h1 class="title" ng-bind="title"></h1>
+      <h3 class="list-img {{notice}}"></h3>
 
 
+      <div ng-if="groceryList.length > 0">
+        <ul class="grocery-list" ng-repeat="item in groceryList">
+            <li class="list-item" ng-click="removeItem(item)"><img class="bullet-img" src="imgs/icon.svg"/> {{item}}</li>
+        </ul>
+        <h4 class="remove-note">(Click on an item to remove it from the list.)</h4>
+      </div>
 
-      <h3 class="add-note">Add an item to the list:</h3>
+      <div ng-if="groceryList.length === 0">
+        <h4 class="empty-desc">You currently have no items on your grocery list!</h4>
+      </div>
 
-      <input class="item-input" ng-model="groceryItem"/>
-      <button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add Item</button>
+      <h3 class="add-note">Add an item to the grocery list:</h3>
+
+      <input class="item-input" placeholder="(e.g. Deluxe Pizza)" ng-model="groceryItem"/>
+      <button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add to List</button>
 
     </div>
 
