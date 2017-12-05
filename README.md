@@ -14,6 +14,8 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [Directives](#directives)
     1. [Controllers](#controllers)
 1. [Building with AngularJS](#building-a-grocery-list)
+    1. [$scope](#$scope)
+
 
 
 
@@ -58,9 +60,9 @@ AngularJS is a framework, so we need to load it with our HTML before we can use 
 
 The *view* of our application will be the **/app/index.html** file in this repository. Your version of the HTML file should now look something like this:
 
-```
-// index.html
 
+**index.html:**
+```
 <!DOCTYPE html>
 <html>
   <head>
@@ -75,9 +77,8 @@ The *view* of our application will be the **/app/index.html** file in this repos
 
 The *whatever/controller* for this app will be the **/app/app.js**. This will pretty much contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
 
+**index.html:**
 ```
-// index.html
-
 ...
   <head>
     <meta charset="utf-8">
@@ -94,9 +95,8 @@ Every AngularJS app requires setting up a **module**. Think of a module as the p
 
 This line sets up our JS file so we can set up the module and use all the methods that come with the AngularJS framework:
 
+**app.js:**
 ```
-// app.js
-
 const myFirstApp = angular.module('appName', []);
 ```
 
@@ -104,12 +104,10 @@ const myFirstApp = angular.module('appName', []);
 
 Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, *appName* that we created in the app.js file.
 
+**index.html:**
 ```
-// index.html
-
 <!DOCTYPE html>
-<html ng-app="appName">
-  <head>
+  <html ng-app="appName">
 ...
 ```
 
@@ -129,9 +127,8 @@ This is where the MVC/MVW concept comes together and we can truly see how Angula
 
 We create a controller in our app by attaching it to the centralized module that we created earlier:
 
+**app.js:**
 ```
-// app.js
-
 const myFirstApp = angular.module('appName', []);
 
 
@@ -144,20 +141,14 @@ myFirstApp.controller('groceryList', function() {
 
 Then we attach the controller inside the HTML using the **ng-controller** directive. **When attaching the ng-controller directive to your HTML, make sure you pass it into an element that is at the same level or below the element that we set the ng-app module directive on or it will not work**:
 
-```
-// index.html
 
+**index.html:**
+```
 <!DOCTYPE html>
 <html ng-app="appName">
-  <head>
-    <meta charset="utf-8">
-    <title>AngularJS Tutorial</title>
-    <script src="https://code.angularjs.org/1.6.7/angular.min.js"></script>
-    <script src="app.js"></script>
-  </head>
-  <body ng-controller="groceryList">
+  <head>...</head>
 
-  </body>
+  <body ng-controller="groceryList"></body>
 </html>
 ```
 
@@ -168,6 +159,11 @@ That's it! Now we have AngularJS loaded in our app and we can start building out
 **[Back to top](#table-of-contents)**
 
 # Building a Grocery List
+
+I have attached a css file, **/app/styles.css**, which contains all the styles for the app. You can download it from this repo and link it to your HTML to save you some time while you follow along.
+
+Below is the starter code for this application. Read the app.js file line by line and reference the index.html to see how the controller modifies the view of our application!
+
 
 
 <!-- When we create an **observable**, we are pretty much pointing AngularJS to some data that we want it to constantly monitor for any changes. We then wire up an HTML element to the observable using **data-binding**. Then, this HTML element becomes dynamic, meaning it can change if the data -->
