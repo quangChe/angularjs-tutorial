@@ -18,6 +18,7 @@ For our development, we will be primarily using AngularJS. It is a very powerful
 1. [Scope](#scopes)
     1. [The $scope Service](#the-scope-service)
     1. [How it works](#how-scope-variables-work)
+1. [Data Binding](#data-binding)
 
 ---
 # What is AngularJS?
@@ -44,7 +45,7 @@ This was a very simple summary of what the MVC/MVVM/MVW architecture. If you wou
 
 ### What AngularJS does
 
-AngularJS does many things under the hood that we cannot see nor fully grasp unless we are weathered Google Engineers. However, at the basic level, AngularJS involves creating **scopes** and attaching them to our HTML elements via **data-binding**. The HTML elements can then become more dynamic, displaying different data values and performing a variety of functions we attach to them. Think of AngularJS as steroids for your HTML.
+AngularJS does many things under the hood that we cannot see nor fully grasp unless we are weathered Google Engineers. However, at the basic level, AngularJS involves creating **scopes** and attaching them to our HTML elements via **data binding**. The HTML elements can then become more dynamic, displaying different data values and performing a variety of functions we attach to them. Think of AngularJS as steroids for your HTML.
 
 AngularJS can even create custom HTML elements called ***components*** but that is outside the ***scope*** of this guide. I italicize the word ***scope*** for important reasons which you will find out later in this guide.
 
@@ -328,7 +329,7 @@ $scope.removeItem = function(item) {
 
 ### How Scope Variables Work
 
-Scope variables can be directly attached to the DOM without having to write extra JavaScript thanks to the help of AngularJS directives and data-binding.
+Scope variables can be directly attached to the DOM without having to write extra JavaScript thanks to the help of AngularJS directives and data binding.
 
 More importantly however, scope variables are ***only valid inside the controller*** which they are declared. Thus, whichever HTML element you choose to attach a controller to, only the child elements of that element have access to the scope variables declared in the controller.
 
@@ -377,5 +378,8 @@ Also, you might have noticed how I used the double curly braces **{{ }}** inside
 ---
 # Data Binding
 
+In the previous section, we covered how to declare scope variables. I mentioned that scope variables are more versatile than JavaScript variables in that they can be attached to the DOM with minimal code. The process of attaching these scope variables to HTML elements is called **data binding**.
+
 **[Back to top](#table-of-contents)**
-<!-- When we create an **observable**, we are pretty much pointing AngularJS to some data that we want it to constantly monitor for any changes. We then wire up an HTML element to the observable using **data-binding**. Then, this HTML element becomes dynamic, meaning it can change if the data -->
+
+---
