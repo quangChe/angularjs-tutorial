@@ -4,7 +4,7 @@
 
 For our development, we will be primarily using AngularJS. It is a very powerful front-end framework with many features included. This guide will cover the basics of AngularJS to help you get started on developing dynamic web applications from a static HTML page. The point of this guide is to help you understand the underlying concept of AngularJS. For that reason, I will be showing you techniques that demonstrate AngularJS concepts but are not the best practices for developing enterprise-level applications.
 
-
+---
 # Table of Contents
 1. [Intro to AngularJS](#what-is-angularjs)
     1. [How it Works](#how-angularjs-works)
@@ -16,7 +16,10 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [Dependency Injection](#dependency-injection)
 1. [Building with AngularJS](#making-a-grocery-list)
 1. [Scope](#scopes)
+    1. [The $scope Service](#the-scope-service)
+    1. [How it works](#how-scope-variables-work)
 
+---
 # What is AngularJS?
 
 AngularJS is a frontend framework that helps us build more dynamic webpages without having to type too much of our own JavaScript.
@@ -38,6 +41,7 @@ Having this separation of concerns makes our code more manageable and our web ap
 
 This was a very simple summary of what the MVC/MVVM/MVW architecture. If you would like to read up more about it, [here is a nice article on the topic.](https://alexatnet.com/model-view-controller-mvc-in-javascript/)
 
+
 ### What AngularJS does
 
 AngularJS does many things under the hood that we cannot see nor fully grasp unless we are weathered Google Engineers. However, at the basic level, AngularJS involves creating **scopes** and attaching them to our HTML elements via **data-binding**. The HTML elements can then become more dynamic, displaying different data values and performing a variety of functions we attach to them. Think of AngularJS as steroids for your HTML.
@@ -46,6 +50,7 @@ AngularJS can even create custom HTML elements called ***components*** but that 
 
 **[Back to top](#table-of-contents)**
 
+---
 # Initial Setup
 ---
 >Now that you have a basic understanding of what AngularJS is, let's create a simple application with it! I have made all the files for the final application available in the ***app*** directory. I suggest you view the ***index.html*** and ***app.js*** files in this directory as you follow along with this guide to get a better understanding of all the concepts I am covering. Let's get started!
@@ -86,6 +91,7 @@ The ***whatever/controller*** for this app will be the **/app/app.js**. This wil
 ...
 ```
 
+
 ### Module
 
 Every AngularJS app requires setting up a centralized **module**. Think of a module as the primary container for all the smaller, lower-level AngularJS objects that are attached to the module. These objects are called ***recipes*** (*controllers, config, filters, components, etc.*).
@@ -97,7 +103,7 @@ This line initializes our app, setting up the module so we can use all the metho
 const myFirstApp = angular.module('appName', []);
 ```
 
-**One thing to note:** The square brackets **[]** inside ***angular.module()*** is left empty for now, but it will be used for dependency injection. I'll cover more on this later when we go over [dependency injection](#dependency-injection).
+**One thing to note:** The square brackets **[ ]** inside ***angular.module()*** is left empty for now, but it will be used for dependency injection. I'll cover more on this later when we go over [dependency injection](#dependency-injection).
 
 Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, ***appName*** that we created in the app.js file.
 
@@ -112,6 +118,7 @@ I like to attach the module in the <html> tag, but you can do it in the <body> t
 
 I passed the module **appName** to my <html> element using the **ng-app** [directive.](#directives)
 
+
 ### Directives
 
 At the most basic level, **directives** are customized AngularJS markers that are attached to HTML elements as attributes (similar to how we attach ***id, class, href, src,*** etc. to element tags). We use these directives to tell AngularJS to bind things/features to HTML elements such as data, event listeners, callbacks, conditionals, etc.
@@ -125,6 +132,7 @@ There are many directives that come standard with the AngularJS framework. Angul
   <button ng-click="fooFunction()"></button>
 </div>
 ```
+
 
 ### Controllers
 
@@ -159,6 +167,7 @@ Then we attach the controller inside the HTML using the **ng-controller** direct
 
 I did it on the <body> tag which is ***inside*** of my <html> tag that I attached the module directive to.
 
+
 ### Dependency Injection
 
 AngularJS is a framework, and frameworks are usually very rich with services and features. To streamline and improve the performance of our application, AngularJS tucks away all its built-in services or *dependencies* until we call them inside our application's code using **dependency injection.**
@@ -166,6 +175,7 @@ AngularJS is a framework, and frameworks are usually very rich with services and
 There are two slots in an AngularJS application through which we can inject dependencies:
   1. Through the top-level ***module***
   2. Through the lower-level AngularJS *recipes* inside the module such as ***controllers, factories, directives, filters, etc.***
+
 
 #### 1. Injecting Through the Module:
 Dependency injection at the module level is necessary when we are including external libraries and packages inside our AngularJS application. These libraries and packages are not part of the AngularJS framework so they need to be plugged in through the *angular.module* object in order to make them globally available to the rest of the AngularJS objects.
@@ -219,6 +229,7 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
 **[Back to top](#table-of-contents)**
 
+---
 # Making a Grocery List
 
 I have attached a css file, **/app/styles.css**, which contains all the styles for the app. You can download it from this repo and link it to your HTML to save you some time while you follow along.
@@ -231,16 +242,140 @@ It's okay if you do not get everything at first. I will be going over the code a
 
 **[Back to top](#table-of-contents)**
 
+---
 # Scopes
 
-In AngularJS, the scopes are what bind our HTML (the view) and our JavaScript code (the controller). It is the bread and butter of AngularJS--more specifically, versions prior to 1.4. We declare scope variables in the controller and bind them to elements in the HTML--more on how to do this later. When we go through this process, we are creating
-
-### $scope
-
-**$scope** is one of the many dependencies and services that are included with AngularJS. However, to use such dependencies
+In AngularJS, a **scope** is what binds our HTML (the view) and our JavaScript code (the controller). It is a service that is used to declare special types of variables we declare in the controller of our JS that can communicate with the DOM in our HTML. Scope is the bread and butter of AngularJS--specifically, of versions prior to 1.4. AngularJS primarily involves declaring scope variables in the controller and binding these variables to elements in the HTML.
 
 
+### The $scope Service
 
+We use the service **$scope** in front of any variable name of our choice to declare scope variables in AngularJS. They function very much like a plain JavaScript variable in that you can attach different values and  to them.
+
+**Primitive Data Types**
+```
+$scope.string = "foo";
+$scope.int = 1234;
+$scope.boolean = true;
+$scope.blank = '';
+$scope.nothing = null;
+$scope.nothingYet = undefined;
+
+// etc.
+```
+
+**Arrays**
+```
+$scope.arr = [1, 2, 3, "hello"];
+
+console.log($scope.arr[0]) // 1
+console.log($scope.arr[3]) // "hello"
+
+$scope.arr.push("bye"); // [1, 2, 3, "hello", "bye"];
+```
+
+**Objects**
+```
+$scope.obj = {name: "foo", age: 2, gender: "male"};
+
+console.log($scope.obj.name) // "foo"
+console.log($scope.obj.age) // 2
+```
+
+**Function Declarations**
+```
+$scope.greetings = function(name) {
+  console.log("Hello, " + name + "!");
+};
+
+$scope.greetings("foo"); // "Hello, foo!"
+```
+
+Go ahead and take a look at all the scope variables declared in the ***app.js*** file of our application and see if you can distinguish their types.
+
+**Our Model is an Array**
+```
+// Our model has a few default values in it at the start of the application
+$scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+```
+
+**Strings**
+```
+$scope.title = "Iris's Grocery List";
+$scope.notice = "fa fa-shopping-cart";
+```
+
+**Functions**
+```
+// This function pushes new items to the our model's array
+$scope.addItem = function(newItem) {
+  if (newItem) {
+      $scope.groceryList.push(newItem);
+  }
+  $scope.groceryItem = null;
+};
+
+// This function removes specific items from our model's array
+$scope.removeItem = function(item) {
+  for (index in $scope.groceryList) {
+    if ($scope.groceryList[index] === item) {
+      $scope.groceryList.splice(index, 1);
+    }
+  }
+};
+```
+
+
+### How Scope Variables Work
+
+Scope variables can be directly attached to the DOM without having to write extra JavaScript thanks to the help of AngularJS directives and data-binding.
+
+More importantly however, scope variables are ***only valid inside the controller*** which they are declared. Thus, whichever HTML element you choose to attach a controller to, only the child elements of that element have access to the scope variables declared in the controller.
+
+**Example**
+```
+<body ng-app="sampleApp">
+
+  <div ng-controller="controller1">
+    <p> {{ ctrlOneGreeting }} </p>  <!-- "Hello from controller 1!" -->
+    <p> {{ ctrlTwoGreeting }} </p>  <!-- Nothing shown -->
+
+    <p> {{ byeBye }} </p>  <!-- "Controller 1 says bye!" - (No collision) -->
+  </div>
+
+  <div ng-controller="controller2">
+    <p> {{ ctrlOneGreeting }} </p> // Nothing shown
+    <p> {{ ctrlTwoGreeting }} </p> // "Hello from controller 2!"
+
+    <p> {{ byeBye }} </p>  <!-- "Controller 2 says bye!" (No collision) -->
+  </div>
+
+
+  <script>
+    const sample = angular.module('sampleApp', []);
+
+    sample.controller('controller1', ['$scope', function($scope) {
+      $scope.ctrlOneGreeting = "Hello from controller 1!";
+      $scope.byeBye = "Controller 1 says bye!";  
+    }]);
+
+    sample.controller('controller2', ['$scope', function($scope) {
+      $scope.ctrlTwoGreeting = "Hello from controller 2!";
+      $scope.byeBye = "Controller 2 says bye!";
+    }]);
+  </script>
+
+</body>
+```
+
+In the example above, note how the ***controller1*** and ***controller2*** don't have access to each other's scope variables. Also, because the scope variables are isolated inside their controllers, they can have the same name, ***$scope.byeBye*** without any *name-space-collision* because they have their own spaces in their respective controllers.
+
+Also, you might have noticed how I used the double curly braces **{{ }}** inside my HTML to display my scope variables. This is called an **expression**, which is one way to bind scope variables that I will cover in more detail in the [next-section.](#data-binding)
+
+**[Back to top](#table-of-contents)**
+
+---
+# Data Binding
 
 **[Back to top](#table-of-contents)**
 <!-- When we create an **observable**, we are pretty much pointing AngularJS to some data that we want it to constantly monitor for any changes. We then wire up an HTML element to the observable using **data-binding**. Then, this HTML element becomes dynamic, meaning it can change if the data -->

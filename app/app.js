@@ -15,7 +15,7 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
         $scope.groceryList.push(newItem);
     }
     $scope.groceryItem = null;
-  }
+  };
 
   $scope.removeItem = function(item) {
     for (index in $scope.groceryList) {
@@ -23,6 +23,5 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
         $scope.groceryList.splice(index, 1);
       }
     }
-  }
-
+  };
 }]);
