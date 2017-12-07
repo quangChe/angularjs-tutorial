@@ -242,9 +242,9 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 ---
 # Making a Grocery List
 
-I have attached a css file, **/app/styles.css**, which contains all the styles for the app. You can download it from this repo and link it to your HTML to save you some time while you follow along.
+![Starter application screenshot](/app/imgs/thumbnail.png)
 
-At this point, you should clone this repository or download it onto your computer. The final app is inside the ***~/app*** directory. Open the ***index.html*** file in your browser to see how the application works.
+At this point, you should already have cloned this repository or downloaded the zip onto your computer. The final app is inside the ***~/app*** directory. Open the ***index.html*** file in your browser to see how the application works.
 
 Next, look over the ***app.js*** file line by line and reference the ***index.html*** to see how the the JavaScript file **controls** the **view** in the HTML file and how the input in the HTML file communicates with the **controller** to modify our **model**, the array inside our controller.
 
