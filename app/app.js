@@ -2,13 +2,13 @@ const myFirstApp = angular.module('appName', []);
 
 myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
-  // Application's data array (the Model)
+  // Application's data array (the "Pseudo Model")
   $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
 
 
   $scope.title = "Iris's Grocery List";
+  $scope.title2 = "Application"
   $scope.notice = "fa fa-shopping-cart";
-
 
   $scope.addItem = function(newItem) {
     if (newItem) {

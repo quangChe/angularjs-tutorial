@@ -22,6 +22,10 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [ng-bind](#ng-bind)
     1. [Expressions](#expressions)
     1. [ng-model](#ng-model)
+1. [Other Useful Directives](#commonly-used-directives)
+    1. [ng-click](#ng-click)
+    1. [ng-repeat](#ng-repeat)
+    1. [ng-if](#ng-if)
 
 ---
 # What is AngularJS?
@@ -32,7 +36,9 @@ AngularJS is a frontend framework that helps us build more dynamic webpages with
 
 ### How AngularJS works
 
-AngularJS manipulates our webpages via the **Model View Whatever (MVW)*** architectural approach.
+![Diagram of an MVW](https://developer.chrome.com/static/images/mvc.png)
+
+AngularJS manipulates our webpages via the **Model View Controller/Model View Viewmodel/Model View Whatever (MVC, MVVW, MVW)*** architectural approach. These different names may have slight differences, but overall they highlight the concept of **separation of concern** between the 3 structures of an application: the **model**, **view** and **controller**
 
   - **The model** is the data we want to display.
     - (I.e., the JSON, JavaScript object, or constant variables that  contain the data)
@@ -52,7 +58,7 @@ AngularJS does many things under the hood that we cannot see nor fully grasp unl
 
 AngularJS can even create custom HTML elements called ***components*** but that is outside the ***scope*** of this guide. I italicize the word ***scope*** for important reasons which you will find out later in this guide.
 
-**[Back to top](#table-of-contents)**
+**[(Back to top)](#table-of-contents)**
 
 ---
 # Initial Setup
@@ -231,7 +237,7 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
 **That pretty much covers all the barebones basics that we need to know to build a simple AngularJS application. Of course, there will be more lower-level concepts to cover once we build out the application.**
 
-**[Back to top](#table-of-contents)**
+**[(Back to top)](#table-of-contents)**
 
 ---
 # Making a Grocery List
@@ -244,7 +250,7 @@ Next, look over the ***app.js*** file line by line and reference the ***index.ht
 
 It's okay if you do not get everything at first. I will be going over the code and covering the underlying AngularJS in the following sections.
 
-**[Back to top](#table-of-contents)**
+**[(Back to top)](#table-of-contents)**
 
 ---
 # Scopes
@@ -376,25 +382,103 @@ In the example above, note how the ***controller1*** and ***controller2*** don't
 
 Also, you might have noticed how I used the double curly braces **{{ }}** inside my HTML to display my scope variables. This is called an **expression**, which is one way to bind scope variables that I will cover in more detail in the [next-section.](#data-binding)
 
-**[Back to top](#table-of-contents)**
+**[(Back to top)](#table-of-contents)**
 
 ---
 # Data Binding
 
 In the previous section, we covered how to declare scope variables. I mentioned that scope variables are more versatile than JavaScript variables in that they can be attached to the DOM with minimal code. The process of attaching these scope variables to HTML elements is called **data binding**.
 
-AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML.  This  AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them.
+The AngularJS documentation features a nice diagram to show you the flow of data-binding:
 
-AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model)
+![Image of AngularJS data binding](https://docs.angularjs.org/img/Two_Way_Data_Binding.png)
 
+It may look a little confusing at first but it is actually quite simple if we break down each object inside the diagram.
+
+**The template**
+
+This is simply the HTML code that we write up--more specifically, it would be the HTML elements that
+we bind AngularJS directives to. They are not displayed like normal HTML elements because they get processed and compiled by AngularJS before they are rendered onto the browser.
+
+**The view**
+This is actually the HTML that is rendered onto the browser. It is all the HTML elements including those that are associated with AngularJS. Anything the user sees and interacts with is the view.
+
+**The model**
+This our data and values we declare inside the controller. It is described by AngularJS as the ***Single-Source-of-Truth*** because it is the persistence source of data that provides values for the view.  
+
+Values declared inside the controller as ***scope variables*** will always be the same whenever the application first starts. We may change or modify these variables during the lifecycle of our AngularJS application, but *restarting the application would return these variables to their original values as declared in the controller.* See the example below:
+
+*app.js*
+```
+myFirstApp.controller('groceryList', ['$scope', function($scope) {
+
+// The AngularJS application will always start out with $scope.title being "Iris's Grocery List" initially:
+
+  $scope.title = "Iris's Grocery List";
+
+
+// If we were to run a function like the above, it would change $scope.title's value during the lifecycle of the
+// application.
+
+  $scope.changeTitle = function(newTitle) {
+    $scope.title = newTitle;
+  }
+  $scope.changeTitle("Foo's Grocery List");
+
+// For the remainder of the application's lifecycle, $scope.title would be "Foo's Grocery List". Restarting the
+// browser would return $scope.title to it's initial value of "Iris's Grocery List" until we modify it again.
+
+}]);
+```
+
+The same thing applies to the data used within the AngularJS application. For our app, we are using an array, so it is technically not a true data model, but it is easier to implement for the sake of the demo. Real data models incorporate a database and have data persistence so that we can pass in data which is saved and displayed even when the application restarts again. Pushing new values inside of the array of our application's controller will save them momentarily but restarting the browser will return the "pseudo model" to its original form:
+
+*app.js*
+```
+// Application's data array (the "Pseudo Model")
+
+$scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+
+
+// We use these functions for basic creation and deletion of non-persistent data by pushing and splicing items from
+// the array:
+
+$scope.addItem = function(newItem) {
+  if (newItem) {
+      $scope.groceryList.push(newItem);
+  }
+  $scope.groceryItem = null;
+};
+
+$scope.removeItem = function(item) {
+  for (index in $scope.groceryList) {
+    if ($scope.groceryList[index] === item) {
+      $scope.groceryList.splice(index, 1);
+    }
+  }
+};
+
+// However, restarting the browser will return $scope.groceryList to the original array with only 3 strings in it:
+// ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+
+```
+
+As you can see, AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML. AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them. This is all concept until you see how we attach our pseudo data models to the DOM through data binding directives.
+
+AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model). These will all be attached on the view end of our app, directly on the HTML elements.
 
 ### ng-bind
 
+The primary way to bind data to an HTML element is to use the **ng-bind** directive
+
 ### {{expressions}}
+
+
 
 ### ng-model
 
 
-**[Back to top](#table-of-contents)**
+
+**[(Back to top)](#table-of-contents)**
 
 ---
