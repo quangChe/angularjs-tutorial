@@ -19,6 +19,9 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [The $scope Service](#the-scope-service)
     1. [How it works](#how-scope-variables-work)
 1. [Data Binding](#data-binding)
+    1. [ng-bind](#ng-bind)
+    1. [Expressions](#expressions)
+    1. [ng-model](#ng-model)
 
 ---
 # What is AngularJS?
@@ -379,6 +382,18 @@ Also, you might have noticed how I used the double curly braces **{{ }}** inside
 # Data Binding
 
 In the previous section, we covered how to declare scope variables. I mentioned that scope variables are more versatile than JavaScript variables in that they can be attached to the DOM with minimal code. The process of attaching these scope variables to HTML elements is called **data binding**.
+
+AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML.  This  AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them.
+
+AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model)
+
+
+### ng-bind
+
+### {{expressions}}
+
+### ng-model
+
 
 **[Back to top](#table-of-contents)**
 
