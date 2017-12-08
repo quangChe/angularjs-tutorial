@@ -7,7 +7,6 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
 
   $scope.title = "Iris's Grocery List";
-  $scope.title2 = "Application"
   $scope.notice = "fa fa-shopping-cart";
 
   $scope.addItem = function(newItem) {

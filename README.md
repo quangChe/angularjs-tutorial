@@ -9,18 +9,19 @@ For our development, we will be primarily using AngularJS. It is a very powerful
 1. [Intro to AngularJS](#what-is-angularjs)
     1. [How it Works](#how-angularjs-works)
     1. [What it Does](#what-angularjs-does)
-1. [Getting Started](#initial-setup)
+1. [Getting Started](#before-we-get-started)
     1. [Module](#module)
     1. [Directives](#directives)
     1. [Controllers](#controllers)
     1. [Dependency Injection](#dependency-injection)
-1. [Building with AngularJS](#making-a-grocery-list)
+    1. [Building the Starter Application](#making-a-grocery-list)
 1. [Scope](#scopes)
     1. [The $scope Service](#the-scope-service)
     1. [How it works](#how-scope-variables-work)
 1. [Data Binding](#data-binding)
     1. [ng-bind](#ng-bind)
     1. [Expressions](#expressions)
+    1. [ng-bind vs expressions](#ng-bind-vs-expressions)
     1. [ng-model](#ng-model)
 1. [Other Useful Directives](#commonly-used-directives)
     1. [ng-click](#ng-click)
@@ -61,10 +62,9 @@ AngularJS can even create custom HTML elements called ***components*** but that 
 **[(Back to top)](#table-of-contents)**
 
 ---
-# Initial Setup
----
+# Before We Get Started
+
 >Now that you have a basic understanding of what AngularJS is, let's create a simple application with it! I have made all the files for the final application available in the ***app*** directory. I suggest you view the ***index.html*** and ***app.js*** files in this directory as you follow along with this guide to get a better understanding of all the concepts I am covering. Let's get started!
----
 
 AngularJS is a framework, so we need to load it with our HTML before we can use it. I like to just use the CDN that is provided by AngularJS straight from their site:
 
@@ -215,7 +215,9 @@ Dependency injection at the module level is necessary when we are including exte
 
 **app.js**
 ```
-// Then we pass it into the module within this Controller JS file
+==========================================================
+We pass it into the module within this Controller JS file:
+==========================================================
 
 const myFirstApp = angular.module('appName', ['ui.router']);
 ```
@@ -235,12 +237,9 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 }]);
 ```
 
-**That pretty much covers all the barebones basics that we need to know to build a simple AngularJS application. Of course, there will be more lower-level concepts to cover once we build out the application.**
+>That pretty much covers all the barebones basics that we need to know to build a simple AngularJS application. Of course, there will be more lower-level concepts to cover once we build out the application.
 
-**[(Back to top)](#table-of-contents)**
-
----
-# Making a Grocery List
+### Making a Grocery List
 
 ![Starter application screenshot](/app/imgs/thumbnail.png)
 
@@ -278,18 +277,18 @@ $scope.nothingYet = undefined;
 ```
 $scope.arr = [1, 2, 3, "hello"];
 
-console.log($scope.arr[0]) // 1
-console.log($scope.arr[3]) // "hello"
+console.log($scope.arr[0])        // 1
+console.log($scope.arr[3])        // "hello"
 
-$scope.arr.push("bye"); // [1, 2, 3, "hello", "bye"];
+$scope.arr.push("bye");           // [1, 2, 3, "hello", "bye"];
 ```
 
 **Objects**
 ```
 $scope.obj = {name: "foo", age: 2, gender: "male"};
 
-console.log($scope.obj.name) // "foo"
-console.log($scope.obj.age) // 2
+console.log($scope.obj.name)           // "foo"
+console.log($scope.obj.age)            // 2
 ```
 
 **Function Declarations**
@@ -298,14 +297,17 @@ $scope.greetings = function(name) {
   console.log("Hello, " + name + "!");
 };
 
-$scope.greetings("foo"); // "Hello, foo!"
+$scope.greetings("foo");               // "Hello, foo!"
 ```
 
 Go ahead and take a look at all the scope variables declared in the ***app.js*** file of our application and see if you can distinguish their types.
 
 **Our Model is an Array**
 ```
-// Our model has a few default values in it at the start of the application
+=========================================================================
+Our model has a few default values in it at the start of the application:
+=========================================================================
+
 $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
 ```
 
@@ -317,7 +319,10 @@ $scope.notice = "fa fa-shopping-cart";
 
 **Functions**
 ```
-// This function pushes new items to the our model's array
+========================================================
+This function pushes new items to the our model's array:
+========================================================
+
 $scope.addItem = function(newItem) {
   if (newItem) {
       $scope.groceryList.push(newItem);
@@ -325,7 +330,10 @@ $scope.addItem = function(newItem) {
   $scope.groceryItem = null;
 };
 
-// This function removes specific items from our model's array
+============================================================
+This function removes specific items from our model's array:
+============================================================
+
 $scope.removeItem = function(item) {
   for (index in $scope.groceryList) {
     if ($scope.groceryList[index] === item) {
@@ -347,17 +355,17 @@ More importantly however, scope variables are ***only valid inside the controlle
 <body ng-app="sampleApp">
 
   <div ng-controller="controller1">
-    <p> {{ ctrlOneGreeting }} </p>  <!-- "Hello from controller 1!" -->
-    <p> {{ ctrlTwoGreeting }} </p>  <!-- Nothing shown -->
+    <p> {{ ctrlOneGreeting }} </p>            <!-- "Hello from controller 1!" -->
+    <p> {{ ctrlTwoGreeting }} </p>            <!-- Nothing shown -->
 
-    <p> {{ byeBye }} </p>  <!-- "Controller 1 says bye!" - (No collision) -->
+    <p> {{ byeBye }} </p>                     <!-- "Controller 1 says bye!" - (No collision) -->
   </div>
 
   <div ng-controller="controller2">
-    <p> {{ ctrlOneGreeting }} </p> // Nothing shown
-    <p> {{ ctrlTwoGreeting }} </p> // "Hello from controller 2!"
+    <p> {{ ctrlOneGreeting }} </p>            // Nothing shown
+    <p> {{ ctrlTwoGreeting }} </p>            // "Hello from controller 2!"
 
-    <p> {{ byeBye }} </p>  <!-- "Controller 2 says bye!" (No collision) -->
+    <p> {{ byeBye }} </p>                     <!-- "Controller 2 says bye!" (No collision) -->
   </div>
 
 
@@ -412,21 +420,28 @@ Values declared inside the controller as ***scope variables*** will always be th
 ```
 myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
-// The AngularJS application will always start out with $scope.title being "Iris's Grocery List" initially:
+=======================================================================
+The AngularJS application will always start out with $scope.title being
+"Iris's Grocery List" initially:
+=======================================================================
 
   $scope.title = "Iris's Grocery List";
 
-
-// If we were to run a function like the above, it would change $scope.title's value during the lifecycle of the
-// application.
+===============================================================
+If we were to run this function, it would change $scope.title's
+value during the lifecycle of the application:
+===============================================================
 
   $scope.changeTitle = function(newTitle) {
     $scope.title = newTitle;
   }
   $scope.changeTitle("Foo's Grocery List");
 
-// For the remainder of the application's lifecycle, $scope.title would be "Foo's Grocery List". Restarting the
-// browser would return $scope.title to it's initial value of "Iris's Grocery List" until we modify it again.
+=============================================================================================
+For the remainder of the application's lifecycle, $scope.title would be "Foo's Grocery List".
+Restarting the browser would return $scope.title to it's initial value of
+"Iris's Grocery List" until we modify it again.
+=============================================================================================
 
 }]);
 ```
@@ -435,13 +450,16 @@ The same thing applies to the data used within the AngularJS application. For ou
 
 *app.js*
 ```
-// Application's data array (the "Pseudo Model")
+=============================================
+Application's data array (the "Pseudo Model")
+=============================================
 
 $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
 
-
-// We use these functions for basic creation and deletion of non-persistent data by pushing and splicing items from
-// the array:
+========================================================================
+We use these functions for basic creation and deletion of non-persistent
+data by pushing and splicing items from the array:
+========================================================================
 
 $scope.addItem = function(newItem) {
   if (newItem) {
@@ -458,9 +476,12 @@ $scope.removeItem = function(item) {
   }
 };
 
-// However, restarting the browser will return $scope.groceryList to the original array with only 3 strings in it:
-// ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+================================================================================
+However, restarting the browser will return $scope.groceryList to the original
+array with only 3 strings in it:
 
+    ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"]
+================================================================================
 ```
 
 As you can see, AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML. AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them. This is all concept until you see how we attach our pseudo data models to the DOM through data binding directives.
@@ -469,15 +490,117 @@ AngularJS has a few methods of data binding that I am going to cover: [**ng-bind
 
 ### ng-bind
 
-The primary way to bind data to an HTML element is to use the **ng-bind** directive
+The primary way to bind data to an HTML element is to use the **ng-bind** directive. This is the fastest and cleanest way to bind the values of certain scope variables/data objects from the controller to specific HTML elements. The examples below demonstrate a few different ways to bind scope variables to the HTML. Note how all these ways of using ng-bind produce the same results in the HTML.
+
+**Primitive Data**
+
+*app.js*
+```
+$scope.title = "Iris's Grocery List";
+```
+*index.html*
+```
+<h1 class="title" ng-bind="title"></h1>         <!--"Iris's Grocery List"-->
+```
+
+**Arrays**
+
+*app.js*
+```
+$scope.title = ["Iris's Grocery List", "Foo's Grocery List"];
+```
+*index.html*
+```
+<h1 class="title" ng-bind="title[0]"></h1>        <!--"Iris's Grocery List"-->
+```
+
+**Objects**
+
+*app.js*
+```
+$scope.obj = {
+  title: "Iris's Grocery List",
+  fake: "Foo's Grocery List"
+};
+```
+*index.html*
+```
+<h1 class="title" ng-bind="obj.title"></h1>       <!--"Iris's Grocery List"-->
+```
+
+**Functions**
+
+*app.js*
+```
+$scope.title = function() {
+  return "Iris's Grocery List";
+};
+```
+*index.html*
+```
+<h1 class="title" ng-bind="title()"></h1>       <!--"Iris's Grocery List"-->
+```
 
 ### {{expressions}}
 
+**Expressions** are essentially the same as ng-bind. However, rather than having to place scope variables inside of the ng-bind markers as an attribute of an element we can place them inside double curly braces **{{ }}** like so:
 
+*index.html*
+```
+===================================
+Both of the following are the same:
+===================================
+
+<h1 class="title" ng-bind="title"></h1>         <!--"Iris's Grocery List"-->
+<h1 class="title">{{title}}</h1>                <!--"Iris's Grocery List"-->
+```
+
+Expressions are a lot more versatile than ng-bind in that they can be easily injected into different locations and still display whatever value they captured. Here's a quick demonstration:
+
+*app.js*
+```
+$scope.name = "Foo";
+```
+*index.html*
+```
+===================================
+Both of the following are the same:
+===================================
+
+<h1>Hello {{name}}, how are you?</h1>                           <!--"Hello Foo, how are you?"-->
+<h1>Hello <span ng-bind="name"></span>, how are you?</h1>       <!--"Hello Foo, how are you?"-->
+
+======================================================================
+Note how we have to create the extra span for the ng-bind directive in
+order to inject the name into the greeting.
+======================================================================
+```
+
+This can be very useful because we can do something like this in our application:
+
+*app.js*
+```
+$scope.notice = "fa fa-shopping-cart";
+```
+*index.html*
+```
+<h3 class="list-img {{notice}}"></h3>
+
+======================================================================
+I declared the string "fa fa-shopping-cart", which is a class name
+for a favicon, then injected that string into an HTML element's class.
+That element now displays the shopping cart favicon.
+======================================================================
+```
+
+
+### ng-bind VS Expressions
+**What's the point of ng-bind then if we have this wonderful and versatile way of binding with expressions?***
+Though versatile, using expressions not as efficient as using ng-bind in terms of performance. If you're only using expressions inside of your AngularJS, your app might flash with unresolved ***{{expression}}*** tags because it takes AngularJS more time to resolve data for expressions than ng-bind. There are complicated concepts underlying this behavior. AngularJS "dirty checks" expressions using a digest loop to constantly refresh it. Meanwhile it places a ***watcher*** on directives like ng-bind and only refreshes them when their passed values change. Thus, ng-bind is more efficient, ***so use expressions with caution!***
 
 ### ng-model
 
-
+The **ng-model**, unlike ng-bind and expressions, have more characteristics of a two-way binding. That is, it does not simply take in declared values like ng-bind and expressions do. The ng-model directive can also output data as well, so it is often used on form inputs because of this.
 
 **[(Back to top)](#table-of-contents)**
 
