@@ -87,7 +87,7 @@ The ***view*** of our application will be the **/app/index.html** file in this r
 ...
 ```
 
-The ***whatever/controller*** for this app will be the **/app/app.js**. This will contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
+The ***whatever/controller*** for this starter app will be the **/app/app.js**. This will contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
 
 **index.html:**
 ```
@@ -106,27 +106,27 @@ The ***whatever/controller*** for this app will be the **/app/app.js**. This wil
 
 Every AngularJS app requires setting up a centralized **module**. Think of a module as the primary container for all the smaller, lower-level AngularJS objects that are attached to the module. These objects are called ***recipes*** (*controllers, config, filters, components, etc.*).
 
-This line initializes our app, setting up the module so we can use all the methods that come with the AngularJS framework inside our JavaScript file to manipulate our HTML file:
+This line initializes our starter app, setting up the module so we can use all the methods that come with the AngularJS framework inside our JavaScript file to manipulate our HTML file:
 
 **app.js:**
 ```
-const myFirstApp = angular.module('appName', []);
+const myFirstApp = angular.module('starterApp', []);
 ```
 
 **One thing to note:** The square brackets **[ ]** inside ***angular.module()*** is left empty for now, but it will be used for dependency injection. I'll cover more on this later when we go over [dependency injection](#dependency-injection).
 
-Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, ***appName*** that we created in the app.js file.
+Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, ***starterApp*** that we created in the app.js file.
 
 **index.html:**
 ```
 <!DOCTYPE html>
-  <html ng-app="appName">
+  <html ng-app="starterApp">
 ...
 ```
 
 I like to attach the module in the <html> tag, but you can do it in the <body> tag or a top-level <div> container as well. Be aware that AngularJS will only see and run our controller code on the child elements that go ***inside*** of whichever element we pass the module name into.
 
-I passed the module **appName** to my <html> element using the **ng-app** [directive.](#directives)
+I passed the module **starterApp** to my <html> element using the **ng-app** [directive.](#directives)
 
 
 ### Directives
@@ -146,13 +146,13 @@ There are many directives that come standard with the AngularJS framework. Angul
 
 ### Controllers
 
-This is where the MVC/MVW concept comes together and we can truly see how AngularJS is an MVC framework. **Controllers** are an AngularJS object in which we put our JavaScript code provide our app with a ***controller*** that manipulates our DOM's ***view*** and connects our data ***model***. I advise that you separate the code for the model, view and controller in different files to achieve separation of concerns. However, for the sake of simplicity, I will use a plain JavaScript array inside the controller as the model for the sample application we will be building.
+This is where the MVC/MVW concept comes together and we can truly see how AngularJS is an MVC framework. **Controllers** are an AngularJS object in which we put our JavaScript code provide our app with a ***controller*** that manipulates our DOM's ***view*** and connects our data ***model***. I advise that you separate the code for the model, view and controller in different files to achieve separation of concerns. However, for the sake of simplicity, I will use a plain JavaScript array inside the controller as the model for the starter application we will be building.
 
-We create a controller in our app by placing it inside the containing module that we created earlier:
+We create a controller in the starter app by placing it inside the containing module that we created earlier:
 
 **app.js:**
 ```
-const myFirstApp = angular.module('appName', []);
+const myFirstApp = angular.module('starterApp', []);
 
 
 myFirstApp.controller('groceryList', function() {
@@ -168,7 +168,7 @@ Then we attach the controller inside the HTML using the **ng-controller** direct
 **index.html:**
 ```
 <!DOCTYPE html>
-<html ng-app="appName">
+<html ng-app="starterApp">
   <head>...</head>
 
   <body ng-controller="groceryList"></body>
@@ -180,24 +180,24 @@ I did it on the <body> tag which is ***inside*** of my <html> tag that I attache
 
 ### Dependency Injection
 
-AngularJS is a framework, and frameworks are usually very rich with services and features. To streamline and improve the performance of our application, AngularJS tucks away all its built-in services or *dependencies* until we call them inside our application's code using **dependency injection.**
+AngularJS is a framework, and frameworks are usually very rich with services and features. To streamline and improve the performance of our applications, AngularJS tucks away all its built-in services or *dependencies* until we call them inside our applications' code using **dependency injection.**
 
-There are two slots in an AngularJS application through which we can inject dependencies:
+There are a few places in the AngularJS code through which we can inject dependencies:
   1. Through the top-level ***module***
   2. Through the lower-level AngularJS *recipes* inside the module such as ***controllers, factories, directives, filters, etc.***
 
 
 #### 1. Injecting Through the Module:
-Dependency injection at the module level is necessary when we are including external libraries and packages inside our AngularJS application. These libraries and packages are not part of the AngularJS framework so they need to be plugged in through the *angular.module* object in order to make them globally available to the rest of the AngularJS objects.
+Dependency injection at the module level is necessary when we are including external libraries and packages inside our AngularJS applications. These libraries and packages are not part of the AngularJS framework so they need to be plugged in through the *angular.module* object in order to make them globally available to the rest of the AngularJS objects.
 
-**Example:** A popular library that is often used to route AngularJS is called UI-Router. We will not be using this library for our application; rather, I am including this as demonstration of how we would pass an external library to an AngularJS app.
+**Example:** A popular library that is often used to route AngularJS is called UI-Router. We will not be using this library for our starter app; rather, I am including this as demonstration of how we would pass an external library to an AngularJS app.
 
 **index.html**
 ```
 <!-- First, we have to link up the UI-Router files/CDN to our HTML -->
 
 <!DOCTYPE html>
-<html ng-app="appName">
+<html ng-app="starterApp">
   <head>
     <meta charset="utf-8">
     <title>AngularJS Tutorial</title>
@@ -219,14 +219,14 @@ Dependency injection at the module level is necessary when we are including exte
 We pass it into the module within this Controller JS file:
 ==========================================================
 
-const myFirstApp = angular.module('appName', ['ui.router']);
+const myFirstApp = angular.module('starterApp', ['ui.router']);
 ```
 
 Once we do that, the rest of the Controller JS can now utilize all the features and methods of AngularJS *and* UI-Router!
 
 
 #### 2. Injecting Through Lower-Level Recipes:
-Dependency injection at lower levels is more common with AngularJS applications and occurs when we are simply trying to call the services/dependencies that come built into the AngularJS framework. We will be using the **$scope** service for building our app. Below, you can see how the **$scope** service gets injected in the controller of our application. In a later section, I will cover more details on [**$scope**.](#scopes)
+Dependency injection at lower levels is more common with AngularJS applications and occurs when we are simply trying to call the services/dependencies that come built into the AngularJS framework. We will be using the **$scope** service for building our starter app. Below, you can see how the **$scope** service gets injected in the controller of our app. In a later section, I will cover more details on [**$scope**.](#scopes)
 
 **app.js**
 ```
@@ -237,13 +237,13 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 }]);
 ```
 
->That pretty much covers all the barebones basics that we need to know to build a simple AngularJS application. Of course, there will be more lower-level concepts to cover once we build out the application.
+>That pretty much covers all the barebones basics that we need to know to build an AngularJS starter app. Of course, there will be more lower-level concepts to cover once we build out the application.
 
 ### Making a Grocery List
 
 ![Starter application screenshot](/app/imgs/thumbnail.png)
 
-At this point, you should already have cloned this repository or downloaded the zip onto your computer. The final app is inside the ***~/app*** directory. Open the ***index.html*** file in your browser to see how the application works.
+At this point, you should already have cloned this repository or downloaded the zip onto your computer. The final version of the starter app is inside the ***~/app*** directory. Open the ***index.html*** file in your browser to see how the application works.
 
 Next, look over the ***app.js*** file line by line and reference the ***index.html*** to see how the the JavaScript file **controls** the **view** in the HTML file and how the input in the HTML file communicates with the **controller** to modify our **model**, the array inside our controller.
 
@@ -300,7 +300,7 @@ $scope.greetings = function(name) {
 $scope.greetings("foo");               // "Hello, foo!"
 ```
 
-Go ahead and take a look at all the scope variables declared in the ***app.js*** file of our application and see if you can distinguish their types.
+Go ahead and take a look at all the scope variables declared in the ***app.js*** file of the starter app and see if you can distinguish their types.
 
 **Our Model is an Array**
 ```
@@ -314,7 +314,7 @@ $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gol
 **Strings**
 ```
 $scope.title = "Iris's Grocery List";
-$scope.notice = "fa fa-shopping-cart";
+$scope.icon = "fa fa-shopping-cart";
 ```
 
 **Functions**
@@ -414,7 +414,7 @@ This is actually the HTML that is rendered onto the browser. It is all the HTML 
 **The model**
 This our data and values we declare inside the controller. It is described by AngularJS as the ***Single-Source-of-Truth*** because it is the persistence source of data that provides values for the view.  
 
-Values declared inside the controller as ***scope variables*** will always be the same whenever the application first starts. We may change or modify these variables during the lifecycle of our AngularJS application, but *restarting the application would return these variables to their original values as declared in the controller.* See the example below:
+Values declared through the ***scope variables*** of an application's controller will always be the same whenever the application first starts. We may change or modify these variables during the lifecycle of an AngularJS application, but *restarting the application would return these variables to their original values as declared in the controller.* See the example below:
 
 *app.js*
 ```
@@ -446,12 +446,12 @@ Restarting the browser would return $scope.title to it's initial value of
 }]);
 ```
 
-The same thing applies to the data used within the AngularJS application. For our app, we are using an array, so it is technically not a true data model, but it is easier to implement for the sake of the demo. Real data models incorporate a database and have data persistence so that we can pass in data which is saved and displayed even when the application restarts again. Pushing new values inside of the array of our application's controller will save them momentarily but restarting the browser will return the "pseudo model" to its original form:
+The same thing applies to the data used within the AngularJS application. For our starter app, we are using an array, so it is technically not a true data model, but it is easier to implement for the sake of the demo. Real data models incorporate a database and have data persistence so that we can pass in data which is saved and displayed even when the application restarts again. Pushing new values inside of the array of our application's controller will save them momentarily but restarting the browser will return the "pseudo model" to its original form:
 
 *app.js*
 ```
 =============================================
-Application's data array (the "Pseudo Model")
+Starter app's data array (the "Pseudo Model")
 =============================================
 
 $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
@@ -486,7 +486,7 @@ array with only 3 strings in it:
 
 As you can see, AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML. AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them. This is all concept until you see how we attach our pseudo data models to the DOM through data binding directives.
 
-AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model). These will all be attached on the view end of our app, directly on the HTML elements.
+AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model). These will all be attached on the view end (HTML) of our starter app, directly on the elements as attributes.
 
 ### ng-bind
 
@@ -576,15 +576,15 @@ order to inject the name into the greeting.
 ======================================================================
 ```
 
-This can be very useful because we can do something like this in our application:
+This can be very useful because we can do something like this in our starter application:
 
 *app.js*
 ```
-$scope.notice = "fa fa-shopping-cart";
+$scope.icon = "fa fa-shopping-cart";
 ```
 *index.html*
 ```
-<h3 class="list-img {{notice}}"></h3>
+<h3 class="list-img {{icon}}"></h3>
 
 ======================================================================
 I declared the string "fa fa-shopping-cart", which is a class name
@@ -600,7 +600,55 @@ Though versatile, using expressions not as efficient as using ng-bind in terms o
 
 ### ng-model
 
-The **ng-model**, unlike ng-bind and expressions, have more characteristics of a two-way binding. That is, it does not simply take in declared values like ng-bind and expressions do. The ng-model directive can also output data as well, so it is often used on form inputs because of this.
+The **ng-model**, unlike ng-bind and expressions, have more characteristics of a two-way binding. That is, it does not simply take in declared values like ng-bind and expressions do. The ng-model directive can also output data as well, so it is often used on form inputs because of this. The way ng-model works is more complicated than ng-bind, so bear with me:
+
+An HTML element that is bound using ng-model will be able to take in any value that we pass it from a scope variable. For example, let's say we have an input with an ng-model:
+
+*index.html*
+```
+<input ng-model="sample"/>
+```
+
+If we do not declare a ***$scope.sample*** variable, then the input will be blank at the start of the application because the $scope.sample will be *undefined* like so:
+
+![Example Input 1](/app/imgs/sample1.png)
+
+However, if we declare a literal value for ***$scope.sample*** like so:
+
+*app.js*
+```
+$scope.sample = "foo"
+```
+
+Then the input will look like this when the application starts:
+
+![Example Input 1](/app/imgs/sample2.png)
+
+If we were to change that input's value and trigger an event that outputs that value, then the $scope.sample variable's value would change with it as well. That is why the ng-model directive is primarily used with <input/> because it is the only HTML element that provides a gateway for users to input values from the view into our controller to update our model. Take a look at the input in the starter application's code:
+
+*index.html*
+```
+<input class="item-input" placeholder="(e.g. Deluxe Pizza)" ng-model="groceryItem"/>
+<button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add to List</button>
+```
+
+The input is bounded to an ng-model with the name ***groceryItem*** but there is no ***$scope.groceryItem*** explicitly defined in the controller code. Thus, the input is blank when the starter app is first opened. There is a button with an AngularJS directive that listens to a click event--more on this [ng-click directive](#ng-click) later. This click event triggers a function called ***addItem()*** that takes in the value from ***groceryItem***. Let's take a look at the app.js file to see what this function does.
+
+*app.js*
+```
+$scope.addItem = function(newItem) {
+  if (newItem) {
+      $scope.groceryList.push(newItem);
+  }
+  $scope.groceryItem = undefined;
+};
+```
+
+The ***addItem(groceryItem)*** takes in the groceryItem of the input and pushes it to our pseudo model, an array called ***groceryList***. If the input were blank, then the ng-model directive would output an *undefined* value to the *addItem()* function. Passing in any value would change the value of $scope.groceryItem and keep that value displayed in the input because the two are bound. Thus, right after the grocery list is updated, we have to change the $scope.groceryItem to *undefined* so that we clear the input's value all over again on the next digest loop.
+
+
+This may seem confusing, but I highly suggest you play around with the starter app to see how it works. Try setting a default value for ***$scope.groceryItem*** inside the controller to see what the input shows when you start the application. Then remove the line '*$scope.groceryItem = undefined;*' from the ***addItem()*** function to see how the input behaves after you click submit.
+
 
 **[(Back to top)](#table-of-contents)**
 

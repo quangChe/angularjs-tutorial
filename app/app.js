@@ -1,4 +1,4 @@
-const myFirstApp = angular.module('appName', []);
+const myFirstApp = angular.module('starterApp', []);
 
 myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
@@ -7,13 +7,13 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
 
   $scope.title = "Iris's Grocery List";
-  $scope.notice = "fa fa-shopping-cart";
+  $scope.icon = "fa fa-shopping-cart";
 
   $scope.addItem = function(newItem) {
     if (newItem) {
         $scope.groceryList.push(newItem);
     }
-    $scope.groceryItem = null;
+    $scope.groceryItem = undefined;
   };
 
   $scope.removeItem = function(item) {
