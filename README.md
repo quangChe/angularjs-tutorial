@@ -647,9 +647,14 @@ $scope.addItem = function(newItem) {
 The ***addItem(groceryItem)*** takes in the groceryItem of the input and pushes it to our pseudo model, an array called ***groceryList***. If the input were blank, then the ng-model directive would output an *undefined* value to the *addItem()* function. Passing in any value would change the value of $scope.groceryItem and keep that value displayed in the input because the two are bound. Thus, right after the grocery list is updated, we have to change the $scope.groceryItem to *undefined* so that we clear the input's value all over again on the next digest loop.
 
 
-This may seem confusing, but I highly suggest you play around with the starter app to see how it works. Try setting a default value for ***$scope.groceryItem*** inside the controller to see what the input shows when you start the application. Then remove the line '*$scope.groceryItem = undefined;*' from the ***addItem()*** function to see how the input behaves after you click submit.
+This may seem confusing, but I highly suggest you play around with the starter app to see how it works. Try setting a default value for ***$scope.groceryItem*** inside the controller to see what the input shows when you start the application. Then remove the line '***$scope.groceryItem = undefined;***' from the ***addItem()*** function to see how the input behaves after you click submit.
 
 
 **[(Back to top)](#table-of-contents)**
 
 ---
+# Useful Directives
+
+
+
+**[(Back to top)](#table-of-contents)**
