@@ -19,14 +19,14 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [The $scope Service](#the-scope-service)
     1. [How it works](#how-scope-variables-work)
 1. [Data Binding](#data-binding)
-    1. [ng-bind](#ng-bind)
+    1. [ngBind](#ngBind)
     1. [Expressions](#expressions)
-    1. [ng-bind vs expressions](#ng-bind-vs-expressions)
-    1. [ng-model](#ng-model)
+    1. [ngBind vs expressions](#ngBind-vs-expressions)
+    1. [ngModel](#ngModel)
 1. [Other Useful Directives](#commonly-used-directives)
-    1. [ng-click](#ng-click)
-    1. [ng-repeat](#ng-repeat)
-    1. [ng-if](#ng-if)
+    1. [ngClick](#ngClick)
+    1. [ngRepeat](#ngRepeat)
+    1. [ngIf](#ngIf)
 
 ---
 # What is AngularJS?
@@ -75,7 +75,7 @@ AngularJS is a framework, so we need to load it with our HTML before we can use 
 The ***view*** of our application will be the **/app/index.html** file in this repository. Your HTML's head section should look like this if you are referencing AngularJS from the CDN:
 
 
-**index.html:**
+*index.html:*
 ```
 <!DOCTYPE html>
 <html>
@@ -89,7 +89,7 @@ The ***view*** of our application will be the **/app/index.html** file in this r
 
 The ***whatever/controller*** for this starter app will be the **/app/app.js**. This will contain all the logic of our application that we will write using the AngularJS framework. Be sure to link to this **app.js** file within the HTML like so:
 
-**index.html:**
+*index.html:*
 ```
 ...
   <head>
@@ -108,7 +108,7 @@ Every AngularJS app requires setting up a centralized **module**. Think of a mod
 
 This line initializes our starter app, setting up the module so we can use all the methods that come with the AngularJS framework inside our JavaScript file to manipulate our HTML file:
 
-**app.js:**
+*app.js:*
 ```
 const myFirstApp = angular.module('starterApp', []);
 ```
@@ -117,7 +117,7 @@ const myFirstApp = angular.module('starterApp', []);
 
 Next up, we need to attach the module to the HTML to link it with AngularJS. We will use the name of the module, ***starterApp*** that we created in the app.js file.
 
-**index.html:**
+*index.html:*
 ```
 <!DOCTYPE html>
   <html ng-app="starterApp">
@@ -126,7 +126,7 @@ Next up, we need to attach the module to the HTML to link it with AngularJS. We 
 
 I like to attach the module in the <html> tag, but you can do it in the <body> tag or a top-level <div> container as well. Be aware that AngularJS will only see and run our controller code on the child elements that go ***inside*** of whichever element we pass the module name into.
 
-I passed the module **starterApp** to my <html> element using the **ng-app** [directive.](#directives)
+I passed the module **starterApp** to my <html> element using the **ngApp** [directive.](#directives)
 
 
 ### Directives
@@ -150,7 +150,7 @@ This is where the MVC/MVW concept comes together and we can truly see how Angula
 
 We create a controller in the starter app by placing it inside the containing module that we created earlier:
 
-**app.js:**
+*app.js:*
 ```
 const myFirstApp = angular.module('starterApp', []);
 
@@ -162,10 +162,10 @@ myFirstApp.controller('groceryList', function() {
 });
 ```
 
-Then we attach the controller inside the HTML using the **ng-controller** directive. **When attaching the ng-controller directive to your HTML, make sure you pass it into an element that is at the same level or (preferably) below the element that we attach the ng-app module directive to or our controller will not be registered**:
+Then we attach the controller inside the HTML using the **ngController** directive. **When attaching the ngController directive to your HTML, make sure you pass it into an element that is at the same level or (preferably) below the element that we attach the ngApp module directive to or our controller will not be registered**:
 
 
-**index.html:**
+*index.html:*
 ```
 <!DOCTYPE html>
 <html ng-app="starterApp">
@@ -192,7 +192,7 @@ Dependency injection at the module level is necessary when we are including exte
 
 **Example:** A popular library that is often used to route AngularJS is called UI-Router. We will not be using this library for our starter app; rather, I am including this as demonstration of how we would pass an external library to an AngularJS app.
 
-**index.html**
+*index.html*
 ```
 <!-- First, we have to link up the UI-Router files/CDN to our HTML -->
 
@@ -213,7 +213,7 @@ Dependency injection at the module level is necessary when we are including exte
   </head>
 ```
 
-**app.js**
+*app.js*
 ```
 ==========================================================
 We pass it into the module within this Controller JS file:
@@ -228,7 +228,7 @@ Once we do that, the rest of the Controller JS can now utilize all the features 
 #### 2. Injecting Through Lower-Level Recipes:
 Dependency injection at lower levels is more common with AngularJS applications and occurs when we are simply trying to call the services/dependencies that come built into the AngularJS framework. We will be using the **$scope** service for building our starter app. Below, you can see how the **$scope** service gets injected in the controller of our app. In a later section, I will cover more details on [**$scope**.](#scopes)
 
-**app.js**
+*app.js*
 ```
 myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
@@ -486,11 +486,11 @@ array with only 3 strings in it:
 
 As you can see, AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML. AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them. This is all concept until you see how we attach our pseudo data models to the DOM through data binding directives.
 
-AngularJS has a few methods of data binding that I am going to cover: [**ng-bind**](#ng-bind), [**expressions**](#expressions), and [**ng-model**](#ng-model). These will all be attached on the view end (HTML) of our starter app, directly on the elements as attributes.
+AngularJS has a few methods of data binding that I am going to cover: [**ngBind**](#ngBind), [**expressions**](#expressions), and [**ngModel**](#ngModel). These will all be attached on the view end (HTML) of our starter app, directly on the elements as attributes.
 
-### ng-bind
+### ngBind
 
-The primary way to bind data to an HTML element is to use the **ng-bind** directive. This is the fastest and cleanest way to bind the values of certain scope variables/data objects from the controller to specific HTML elements. The examples below demonstrate a few different ways to bind scope variables to the HTML. Note how all these ways of using ng-bind produce the same results in the HTML.
+The primary way to bind data to an HTML element is to use the **ngBind** directive. This is the fastest and cleanest way to bind the values of certain scope variables/data objects from the controller to specific HTML elements. The examples below demonstrate a few different ways to bind scope variables to the HTML. Note how all these ways of using ngBind produce the same results in the HTML.
 
 **Primitive Data**
 
@@ -543,7 +543,7 @@ $scope.title = function() {
 
 ### {{expressions}}
 
-**Expressions** are essentially the same as ng-bind. However, rather than having to place scope variables inside of the ng-bind markers as an attribute of an element we can place them inside double curly braces **{{ }}** like so:
+**Expressions** are essentially the same as ngBind. However, rather than having to place scope variables inside of the ngBind markers as an attribute of an element we can place them inside double curly braces **{{ }}** like so:
 
 *index.html*
 ```
@@ -555,7 +555,7 @@ Both of the following are the same:
 <h1 class="title">{{title}}</h1>                <!--"Iris's Grocery List"-->
 ```
 
-Expressions are a lot more versatile than ng-bind in that they can be easily injected into different locations and still display whatever value they captured. Here's a quick demonstration:
+Expressions are a lot more versatile than ngBind in that they can be easily injected into different locations and still display whatever value they captured. Here's a quick demonstration:
 
 *app.js*
 ```
@@ -571,7 +571,7 @@ Both of the following are the same:
 <h1>Hello <span ng-bind="name"></span>, how are you?</h1>       <!--"Hello Foo, how are you?"-->
 
 ======================================================================
-Note how we have to create the extra span for the ng-bind directive in
+Note how we have to create the extra span for the ngBind directive in
 order to inject the name into the greeting.
 ======================================================================
 ```
@@ -594,15 +594,15 @@ That element now displays the shopping cart favicon.
 ```
 
 
-### ng-bind VS Expressions
-**What's the point of ng-bind then if we have this wonderful and versatile way of binding with expressions?***
-Though versatile, using expressions not as efficient as using ng-bind in terms of performance. If you're only using expressions inside of your AngularJS, your app might flash with unresolved ***{{expression}}*** tags because it takes AngularJS more time to resolve data for expressions than ng-bind. There are complicated concepts underlying this behavior. AngularJS "dirty checks" expressions using a digest loop to constantly refresh it. Meanwhile it places a ***watcher*** on directives like ng-bind and only refreshes them when their passed values change. Thus, ng-bind is more efficient, ***so use expressions with caution!***
+### ngBind VS Expressions
+**What's the point of ngBind then if we have this wonderful and versatile way of binding with expressions?***
+Though versatile, using expressions not as efficient as using ngBind in terms of performance. If you're only using expressions inside of your AngularJS, your app might flash with unresolved ***{{expression}}*** tags because it takes AngularJS more time to resolve data for expressions than ngBind. There are complicated concepts underlying this behavior. AngularJS "dirty checks" expressions using a digest loop to constantly refresh it. Meanwhile it places a ***watcher*** on directives like ngBind and only refreshes them when their passed values change. Thus, ngBind is more efficient, ***so use expressions with caution!***
 
-### ng-model
+### ngModel
 
-The **ng-model**, unlike ng-bind and expressions, have more characteristics of a two-way binding. That is, it does not simply take in declared values like ng-bind and expressions do. The ng-model directive can also output data as well, so it is often used on form inputs because of this. The way ng-model works is more complicated than ng-bind, so bear with me:
+The **ngModel**, unlike ngMind and expressions, have more characteristics of a two-way binding. That is, it does not simply take in declared values like ngBind and expressions do. The ngModel directive can also output data as well, so it is often used on form inputs because of this. The way ngModel works is more complicated than ngBind, so bear with me:
 
-An HTML element that is bound using ng-model will be able to take in any value that we pass it from a scope variable. For example, let's say we have an input with an ng-model:
+An HTML element that is bound using ngModel will be able to take in any value that we pass it from a scope variable. For example, let's say we have an input with an ngModel:
 
 *index.html*
 ```
@@ -624,7 +624,7 @@ Then the input will look like this when the application starts:
 
 ![Example Input 1](/app/imgs/sample2.png)
 
-If we were to change that input's value and trigger an event that outputs that value, then the $scope.sample variable's value would change with it as well. That is why the ng-model directive is primarily used with <input/> because it is the only HTML element that provides a gateway for users to input values from the view into our controller to update our model. Take a look at the input in the starter application's code:
+If we were to change that input's value and trigger an event that outputs that value, then the $scope.sample variable's value would change with it as well. That is why the ngModel directive is primarily used with <input/> because it is the only HTML element that provides a gateway for users to input values from the view into our controller to update our model. Take a look at the input in the starter application's code:
 
 *index.html*
 ```
@@ -632,7 +632,7 @@ If we were to change that input's value and trigger an event that outputs that v
 <button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add to List</button>
 ```
 
-The input is bounded to an ng-model with the name ***groceryItem*** but there is no ***$scope.groceryItem*** explicitly defined in the controller code. Thus, the input is blank when the starter app is first opened. There is a button with an AngularJS directive that listens to a click event--more on this [ng-click directive](#ng-click) later. This click event triggers a function called ***addItem()*** that takes in the value from ***groceryItem***. Let's take a look at the app.js file to see what this function does.
+The input is bounded to an ngModel with the name ***groceryItem*** but there is no ***$scope.groceryItem*** explicitly defined in the controller code. Thus, the input is blank when the starter app is first opened. There is a button with an AngularJS directive that listens to a click event--more on this [ngClick directive](#ngClick) later. This click event triggers a function called ***addItem()*** that takes in the value from ***groceryItem***. Let's take a look at the app.js file to see what this function does.
 
 *app.js*
 ```
@@ -644,7 +644,7 @@ $scope.addItem = function(newItem) {
 };
 ```
 
-The ***addItem(groceryItem)*** takes in the groceryItem of the input and pushes it to our pseudo model, an array called ***groceryList***. If the input were blank, then the ng-model directive would output an *undefined* value to the *addItem()* function. Passing in any value would change the value of $scope.groceryItem and keep that value displayed in the input because the two are bound. Thus, right after the grocery list is updated, we have to change the $scope.groceryItem to *undefined* so that we clear the input's value all over again on the next digest loop.
+The ***addItem(groceryItem)*** takes in the groceryItem of the input and pushes it to our pseudo model, an array called ***groceryList***. If the input were blank, then the ngModel directive would output an *undefined* value to the *addItem()* function. Passing in any value would change the value of $scope.groceryItem and keep that value displayed in the input because the two are bound. Thus, right after the grocery list is updated, we have to change the $scope.groceryItem to *undefined* so that we clear the input's value all over again on the next digest loop.
 
 
 This may seem confusing, but I highly suggest you play around with the starter app to see how it works. Try setting a default value for ***$scope.groceryItem*** inside the controller to see what the input shows when you start the application. Then remove the line '***$scope.groceryItem = undefined;***' from the ***addItem()*** function to see how the input behaves after you click submit.
@@ -656,7 +656,77 @@ This may seem confusing, but I highly suggest you play around with the starter a
 
 #Commonly Used Directives
 
-There are many
+There are many directives that come with AngularJS that I will not be able to cover in this tutorial which you can find [here.](https://docs.angularjs.org/api)
+
+For the starter app, we implemented 3 of the most commonly-used directives: [ngClick](#ngClick), [ngRepeat](#ngRepeat), and [ngIf](#ngIf).
+
+Before we dive into each of these directives, take a look at the following chunk of code inside our starter app to see how they are implemented:
+
+*index.html*
+```
+
+ngIf 1 >>      <div ng-if="groceryList.length > 0">
+                 <ul class="grocery-list">
+ngRepeat/          <li class="list-item"
+ngClick >>              ng-click="removeItem(item)" ng-repeat="item in groceryList>
+                     <img class="bullet-img" src="imgs/icon.svg"/> {{item}}
+                   </li>
+                 </ul>
+
+                 <h4 class="remove-note">(Click on an item to remove it from the list.)</h4>
+               </div>
+
+ngIf 2 >>      <div ng-if="groceryList.length === 0">
+                 <h4 class="empty-desc">You currently have no items on your grocery list!</h4>
+               </div>
+
+               <h3 class="add-note">Add an item to the grocery list:</h3>
+
+               <input class="item-input"
+                      placeholder="(e.g. Deluxe Pizza)"     
+                      ng-model="groceryItem"/>
+
+ngClick >>    <button class="add-btn"
+                      type="button"
+                      ng-if="groceryItem"       
+                      ng-click="addItem(groceryItem)">Add to List</button>
+```
+
+*app.js*
+```
+myFirstApp.controller('groceryList', ['$scope', function($scope) {
+
+  //===================
+  // ngIf and ngRepeat:
+  //===================
+
+  $scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+
+  //=========
+  // ngClick:
+  //=========
+
+  $scope.addItem = function(newItem) {
+    if (newItem) {
+        $scope.groceryList.push(newItem);
+    }
+    $scope.groceryItem = undefined;
+  };
+
+  $scope.removeItem = function(item) {
+    for (index in $scope.groceryList) {
+      if ($scope.groceryList[index] === item) {
+        $scope.groceryList.splice(index, 1);
+      }
+    }
+  };
+}]);
+```
+
+### ngClick
+
+The **ngClick** directive can be placed on any HTML element to trigger an event when an element is clicked
+
 
 
 **[(Back to top)](#table-of-contents)**
