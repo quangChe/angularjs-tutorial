@@ -653,8 +653,10 @@ This may seem confusing, but I highly suggest you play around with the starter a
 **[(Back to top)](#table-of-contents)**
 
 ---
-# Useful Directives
 
+#Commonly Used Directives
+
+There are many
 
 
 **[(Back to top)](#table-of-contents)**
