@@ -27,6 +27,7 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [ngClick](#ngclick)
     1. [ngRepeat](#ngrepeat)
     1. [ngIf](#ngif)
+1. [Conclusion](#conclusion)
 
 ---
 # What is AngularJS?
@@ -816,10 +817,73 @@ To see AngularJS rendering these elements, try opening the index.html in a Chrom
 
 ![Example Developer Console](/app/imgs/sample3.png)
 
+Try using the app to add another item to the grocery list. Note how the console will update the DOM with another li after you submit an item.
+
 I just showed you only the most basic usage of ngRepeat. The directive has special properties and can do many other iterative tasks that you can read up on [here.](https://docs.angularjs.org/api/ng/directive/ngRepeat)
 
 ### ngIf
 
-The **ngIf** directive is used to remove or render a portion of the DOM. It is l
+The **ngIf** directive is used to remove or render a portion of the DOM by providing a condition. The condition provided to the directive must return a **true** or **false** value, such that *true* would render a block and *false* would remove it. Thus, we wan't to provide the ngIf directive in a container element to encapture the template or block of html elements we want to show/hide with conditionals. Take a look at the starter app:
+
+*index.html*
+```
+Condition 1    <div ng-if="groceryList.length > 0">
+                 <ul class="grocery-list">
+                   <li class="list-item"
+                       ng-click="removeItem(item)" ng-repeat="item in groceryList>
+                     <img class="bullet-img" src="imgs/icon.svg"/> {{item}}
+                   </li>
+                 </ul>
+
+                 <h4 class="remove-note">(Click on an item to remove it from the list.)</h4>
+               </div>
+
+Condition 2    <div ng-if="groceryList.length === 0">
+                 <h4 class="empty-desc">You currently have no items on your grocery list!</h4>
+               </div>
+```
+
+Both conditions are going off of the length ***groceryList*** array:
+
+*app.js*
+```
+$scope.groceryList = ["Granny Smith Apples", "Naval Oranges", "Dole Hawaiian Gold Pineapple"];
+```
+
+**Condition 1: "groceryList.length > 0"**
+
+If there is one or more items inside our data array, then this chunk of code shows:
+
+```
+<div ng-if="groceryList.length > 0">
+ <ul class="grocery-list">
+   <li class="list-item"
+       ng-click="removeItem(item)" ng-repeat="item in groceryList>
+     <img class="bullet-img" src="imgs/icon.svg"/> {{item}}
+   </li>
+ </ul>
+
+ <h4 class="remove-note">(Click on an item to remove it from the list.)</h4>
+</div>
+```
+
+Resulting in:
+
+![If there is data image.](/app/imgs/sample4.png)
+
+
+**Condition 2: "groceryList.length === 0"**
+
+If there are no items inside our data array, then this chunk of code shows:
+
+```
+<div ng-if="groceryList.length === 0">
+  <h4 class="empty-desc">You currently have no items on your grocery list!</h4>
+</div>
+```
+
+Resulting in:
+
+![If there is no data image.](/app/imgs/sample5.png)
 
 **[(Back to top)](#table-of-contents)**
