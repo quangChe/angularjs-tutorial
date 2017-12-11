@@ -51,6 +51,7 @@ ul {
 .grocery-list {
   font-size: 1.2em;
   font-weight: 100;
+  display: block;
 }
 
 .list-item {
@@ -62,7 +63,7 @@ ul {
   width: 40%;
   min-width: 200px;
   border-radius: 10px;
-  display: inline-grid;
+  display: grid;
   grid-template-columns: 1fr 7fr;
   grid-gap: 10px;
   text-align: left;

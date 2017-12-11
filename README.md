@@ -19,14 +19,14 @@ For our development, we will be primarily using AngularJS. It is a very powerful
     1. [The $scope Service](#the-scope-service)
     1. [How it works](#how-scope-variables-work)
 1. [Data Binding](#data-binding)
-    1. [ngBind](#ngBind)
+    1. [ngBind](#ngbind)
     1. [Expressions](#expressions)
-    1. [ngBind vs expressions](#ngBind-vs-expressions)
-    1. [ngModel](#ngModel)
+    1. [ngBind vs expressions](#ngbind-vs-expressions)
+    1. [ngModel](#ngmodel)
 1. [Other Useful Directives](#commonly-used-directives)
-    1. [ngClick](#ngClick)
-    1. [ngRepeat](#ngRepeat)
-    1. [ngIf](#ngIf)
+    1. [ngClick](#ngclick)
+    1. [ngRepeat](#ngrepeat)
+    1. [ngIf](#ngif)
 
 ---
 # What is AngularJS?
@@ -124,9 +124,9 @@ Next up, we need to attach the module to the HTML to link it with AngularJS. We 
 ...
 ```
 
-I like to attach the module in the <html> tag, but you can do it in the <body> tag or a top-level <div> container as well. Be aware that AngularJS will only see and run our controller code on the child elements that go ***inside*** of whichever element we pass the module name into.
+I like to attach the module in the html tag, but you can do it in the body tag or a top-level div container as well. Be aware that AngularJS will only see and run our controller code on the child elements that go ***inside*** of whichever element we pass the module name into.
 
-I passed the module **starterApp** to my <html> element using the **ngApp** [directive.](#directives)
+I passed the module **starterApp** to my html element using the **ngApp** [directive.](#directives)
 
 
 ### Directives
@@ -175,7 +175,7 @@ Then we attach the controller inside the HTML using the **ngController** directi
 </html>
 ```
 
-I did it on the <body> tag which is ***inside*** of my <html> tag that I attached the module directive to.
+I did it on the body tag which is ***inside*** of my html tag that I attached the module directive to.
 
 
 ### Dependency Injection
@@ -595,6 +595,7 @@ That element now displays the shopping cart favicon.
 
 
 ### ngBind VS Expressions
+
 **What's the point of ngBind then if we have this wonderful and versatile way of binding with expressions?***
 Though versatile, using expressions not as efficient as using ngBind in terms of performance. If you're only using expressions inside of your AngularJS, your app might flash with unresolved ***{{expression}}*** tags because it takes AngularJS more time to resolve data for expressions than ngBind. There are complicated concepts underlying this behavior. AngularJS "dirty checks" expressions using a digest loop to constantly refresh it. Meanwhile it places a ***watcher*** on directives like ngBind and only refreshes them when their passed values change. Thus, ngBind is more efficient, ***so use expressions with caution!***
 
@@ -624,7 +625,7 @@ Then the input will look like this when the application starts:
 
 ![Example Input 1](/app/imgs/sample2.png)
 
-If we were to change that input's value and trigger an event that outputs that value, then the $scope.sample variable's value would change with it as well. That is why the ngModel directive is primarily used with <input/> because it is the only HTML element that provides a gateway for users to input values from the view into our controller to update our model. Take a look at the input in the starter application's code:
+If we were to change that input's value and trigger an event that outputs that value, then the $scope.sample variable's value would change with it as well. That is why the ngModel directive is primarily used with inputs because it is the only HTML element that provides a gateway for users to input values from the view into our controller to update our model. Take a look at the input in the starter application's code:
 
 *index.html*
 ```
@@ -654,7 +655,7 @@ This may seem confusing, but I highly suggest you play around with the starter a
 
 ---
 
-#Commonly Used Directives
+# Commonly Used Directives
 
 There are many directives that come with AngularJS that I will not be able to cover in this tutorial which you can find [here.](https://docs.angularjs.org/api)
 
@@ -725,8 +726,100 @@ myFirstApp.controller('groceryList', ['$scope', function($scope) {
 
 ### ngClick
 
-The **ngClick** directive can be placed on any HTML element to trigger an event when an element is clicked
+The **ngClick** directive can be placed on an HTML element to trigger an event when an element is clicked.
 
+In the starter app, the ngClick directive was used twice, once to to trigger a **removeItem()** function and another to trigger an **addItem()** function.
 
+*index.html*
+```
+======
+REMOVE
+======
+<li class="list-item"
+    ng-click="removeItem(item)"
+    ng-repeat="item in groceryList>
+      <img class="bullet-img" src="imgs/icon.svg"/> {{item}}
+</li>
+
+===
+ADD
+===
+<button class="add-btn"
+                      type="button"
+                      ng-if="groceryItem"       
+                      ng-click="addItem(groceryItem)">Add to List</button>
+```
+
+Notice how the ng-click can work with the *list* element and the *button* element.
+I passed the functions as values and the target items as parameters. See how these fucnctions run in the JavaScript file.
+
+*app.js*
+```
+===
+ADD
+===
+$scope.addItem = function(newItem) {
+  if (newItem) {
+      $scope.groceryList.push(newItem);
+  }
+  $scope.groceryItem = undefined;
+};
+
+======
+REMOVE
+======
+$scope.removeItem = function(item) {
+  for (index in $scope.groceryList) {
+    if ($scope.groceryList[index] === item) {
+      $scope.groceryList.splice(index, 1);
+    }
+  }
+};
+```
+
+The **addItem() function** triggered by the button takes in a ***groceryItem*** parameter, which is the value from the input that we provided an ngModel directive to.
+This value (if it exists), is pushed into the ***groceryList*** array that serves as our mock data object for this app.
+
+The **removeItem() function** triggered by clicking on a list item, takes in the value of ***item***, which is the name of each object we render from the [ngRepeat](#ngRepeat) that goes through the ***groceryList*** array to display each iteration as an object. This function then goes through each groceryList item to delete the specific one that has a matching value.
+
+### ngRepeat
+
+**ngRepeat** is a very powerful directive under the hood. It will cycle through arrays and create a DOM element for each iteration it goes through. When attached to an element, it will create another count of that element for each item in the array. The basic syntax for ngRepeat is:
+
+> <ANY ng-repeat=" 'itemName' in 'arrayName' "></ANY>
+
+This is how it is used in the start app:
+
+*index.html*
+```
+<li class="list-item"
+    ng-click="removeItem(item)"
+    ng-repeat="item in groceryList">
+      <img class="bullet-img" src="imgs/icon.svg"/>
+      {{item}}
+</li>
+```
+
+The syntax in the ngRepeat directive tells Angular that we have a ***groceryList*** array. For each item in the array, ngRepeat will create another **li element** with all the all the same attributes and child elements inside of it (our **img element**). ***item*** an object within the array, so since our array contains a list of strings, each **{{item}}** that is provided inside the li element will be that string. Alternatively, we could also bind the values like so:
+
+*index.html*
+```
+<li class="list-item"
+    ng-click="removeItem(item)"
+    ng-repeat="item in groceryList">
+      <img class="bullet-img" src="imgs/icon.svg"/>
+      <p ng-bind="item"></p>
+</li>
+```
+
+To see AngularJS rendering these elements, try opening the index.html in a Chrome Browser and opening the developer console using: **cmd + opt + i**. Going down to the part of the DOM tree where we see the li element, note how there are multiple li's even though there is only one in the index.html file:
+
+![Example Developer Console](/app/imgs/sample3.png)
+
+I just showed you only the most basic usage of ngRepeat. The directive has special properties and can do many other iterative tasks that you can read up on [here.](https://docs.angularjs.org/api/ng/directive/ngRepeat)
+
+### ngIf
+
+The **ngIf** directive is used to remove or render a portion of the DOM. It is l
 
 **[(Back to top)](#table-of-contents)**

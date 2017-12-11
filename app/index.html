@@ -21,8 +21,13 @@
 
 
       <div ng-if="groceryList.length > 0">
-        <ul class="grocery-list" ng-repeat="item in groceryList">
-            <li class="list-item" ng-click="removeItem(item)"><img class="bullet-img" src="imgs/icon.svg"/> {{item}}</li>
+        <ul class="grocery-list">
+          <li class="list-item"
+              ng-click="removeItem(item)"
+              ng-repeat="item in groceryList">
+                <img class="bullet-img" src="imgs/icon.svg"/>
+                {{item}}
+          </li>
         </ul>
         <h4 class="remove-note">(Click on an item to remove it from the list.)</h4>
       </div>
@@ -33,8 +38,14 @@
 
       <h3 class="add-note">Add an item to the grocery list:</h3>
 
-      <input class="item-input" placeholder="(e.g. Deluxe Pizza)" ng-model="groceryItem"/>
-      <button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add to List</button>
+      <input class="item-input"
+             placeholder="(e.g. Deluxe Pizza)"
+             ng-model="groceryItem"/>
+
+      <button class="add-btn"
+              type="button"
+              ng-if="groceryItem"
+              ng-click="addItem(groceryItem)">Add to List</button>
 
     </div>
 
