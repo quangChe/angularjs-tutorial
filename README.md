@@ -487,7 +487,7 @@ array with only 3 strings in it:
 
 As you can see, AngularJS implements data binding to refresh the HTML (View) with any changes in our data (our Model and any scope variables in the controller) and update the data with any user actions performed in the HTML. AngularJS is constantly monitoring all the scope variables and the elements that we bind the scope variables to. Any changes to one will be reflected onto the other depending on how we bind them. This is all concept until you see how we attach our pseudo data models to the DOM through data binding directives.
 
-AngularJS has a few methods of data binding that I am going to cover: [**ngBind**](#ngBind), [**expressions**](#expressions), and [**ngModel**](#ngModel). These will all be attached on the view end (HTML) of our starter app, directly on the elements as attributes.
+AngularJS has a few methods of data binding that I am going to cover: [**ngBind**](#ngbind), [**expressions**](#expressions), and [**ngModel**](#ngmodel). These will all be attached on the view end (HTML) of our starter app, directly on the elements as attributes.
 
 ### ngBind
 
@@ -634,7 +634,7 @@ If we were to change that input's value and trigger an event that outputs that v
 <button class="add-btn" type="button" ng-if="groceryItem" ng-click="addItem(groceryItem)">Add to List</button>
 ```
 
-The input is bounded to an ngModel with the name ***groceryItem*** but there is no ***$scope.groceryItem*** explicitly defined in the controller code. Thus, the input is blank when the starter app is first opened. There is a button with an AngularJS directive that listens to a click event--more on this [ngClick directive](#ngClick) later. This click event triggers a function called ***addItem()*** that takes in the value from ***groceryItem***. Let's take a look at the app.js file to see what this function does.
+The input is bounded to an ngModel with the name ***groceryItem*** but there is no ***$scope.groceryItem*** explicitly defined in the controller code. Thus, the input is blank when the starter app is first opened. There is a button with an AngularJS directive that listens to a click event--more on this [ngClick directive](#ngclick) later. This click event triggers a function called ***addItem()*** that takes in the value from ***groceryItem***. Let's take a look at the app.js file to see what this function does.
 
 *app.js*
 ```
@@ -660,7 +660,7 @@ This may seem confusing, but I highly suggest you play around with the starter a
 
 There are many directives that come with AngularJS that I will not be able to cover in this tutorial which you can find [here.](https://docs.angularjs.org/api)
 
-For the starter app, we implemented 3 of the most commonly-used directives: [ngClick](#ngClick), [ngRepeat](#ngRepeat), and [ngIf](#ngIf).
+For the starter app, we implemented 3 of the most commonly-used directives: [ngClick](#ngclick), [ngRepeat](#ngrepeat), and [ngIf](#ngif).
 
 Before we dive into each of these directives, take a look at the following chunk of code inside our starter app to see how they are implemented:
 
@@ -781,7 +781,7 @@ $scope.removeItem = function(item) {
 The **addItem() function** triggered by the button takes in a ***groceryItem*** parameter, which is the value from the input that we provided an ngModel directive to.
 This value (if it exists), is pushed into the ***groceryList*** array that serves as our mock data object for this app.
 
-The **removeItem() function** triggered by clicking on a list item, takes in the value of ***item***, which is the name of each object we render from the [ngRepeat](#ngRepeat) that goes through the ***groceryList*** array to display each iteration as an object. This function then goes through each groceryList item to delete the specific one that has a matching value.
+The **removeItem() function** triggered by clicking on a list item, takes in the value of ***item***, which is the name of each object we render from the [ngRepeat](#ngrepeat) that goes through the ***groceryList*** array to display each iteration as an object. This function then goes through each groceryList item to delete the specific one that has a matching value.
 
 ### ngRepeat
 
@@ -885,5 +885,11 @@ If there are no items inside our data array, then this chunk of code shows:
 Resulting in:
 
 ![If there is no data image.](/app/imgs/sample5.png)
+
+**[(Back to top)](#table-of-contents)**
+
+# Conclusion
+
+That sums up the basics of AngularJS. I would suggest you go through the HTML and JavaScript files of the starter app once more to understand all the concepts that were covered in this tutorial. You may notice that you understand everything more clearly, but do not worry if you do not feel confident about using AngularJS yet. As with every programming library and framework, you just have to dive right in and everything will become clearer to you the more you practice. Go head and get started on your own version of the starter app! Add your own touch to it and explore the AngularJS documentation to improve on the app if you can. If you get stuck on anything, feel free to ask questions or search many popular AngularJS communities such as [this one.](https://plus.google.com/communities/115368820700870330756)
 
 **[(Back to top)](#table-of-contents)**
